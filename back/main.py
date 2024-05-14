@@ -10,7 +10,6 @@ import uvicorn
 from app.api.titanic.model.titanic_model import TitanicModel
 from app.main_router import router
 
-
 class Request(BaseModel):
     question: str
 

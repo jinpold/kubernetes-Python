@@ -14,12 +14,12 @@ class Response(BaseModel):
 @router.post('/titanic')
 async def titanic(req:Request):
     print('타이타닉 딕셔너리 내용')
-    hello = 'C:\\Users\\jinpo\\kubernetes\\chat-server\\back\\app\\api\\titanic\\data\\hello.txt'
+    hello = 'C:\\Users\\jinpo\\kubernetes-python\\chat-server\\back\\app\\api\\titanic\\data\\hello.txt'
     f = open(hello, "r", encoding="utf-8")
     data = f.read()
     print(data)
     f.close()
-    service.process() 
+    ##service.process()
     print(req)
    
     return Response(answer = "타이타닉 생존자는 100명이야")
