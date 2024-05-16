@@ -6,23 +6,24 @@ class Models:
     def __init__(self) -> None:
         self.ds = DataSets()
         this = self.ds
-        this.dname = './data'
-        this.sname = './save'
+        this.dname = './app/api/context/data/'
+        this.sname = './app/api/context/save/'
 
-    
-    def new_model(self, fname: pd.DataFrame) -> object: 
+    def new_dataframe_with_index(self, fname: pd.DataFrame) -> pd.DataFrame:
         this = self.ds
         #index_col = 0 을 해야 기존 index 값이 유지된다.
         #0은 컬럼명중에서 첫번째를 의미한다 (배열구조)
         #pd.read_csv(f'경로/파일명/csv', index_col=0 = '인덱스로 지정할 column명') Index 지정
-
-        return pd.read_csv(f'{this.dname}{fname}', index_col=0) 
+        return pd.read_csv(f'{this.dname}{fname}', index_col=0)
     
-    def new_dframe(self, fname) -> object:
+    def new_dataframe_no_index(self, fname: pd.DataFrame) -> pd.DataFrame:
         this = self.ds
-        return pd.DataFrame(f'{this.dname}{fname}') 
+        # pd.read_csv(f'경로/파일명/csv') Index를 지정하지 않음.
+
+        return pd.read_csv(f'{this.dname}{fname}')
+           
     
-    def save_model(self, fname, dframe) -> object:
+    def save_model(self, fname, dframe: pd.DataFrame) -> pd.DataFrame:
         this = self.ds
         '''
         풀옵션은 다음과 같다.

@@ -1,89 +1,46 @@
-
+from dataclasses import dataclass
+import os
+import numpy as np
+import pandas as pd # type: ignore
+from sklearn.ensemble import RandomForestClassifier # type: ignore
+from sklearn.naive_bayes import GaussianNB # type: ignore
+from sklearn.neighbors import KNeighborsClassifier # type: ignore
+from sklearn.svm import SVC # type: ignore
+from sklearn.tree import DecisionTreeClassifier # type: ignore
 from app.api.titanic.model.titanic_model import TitanicModel
-import pandas as pd
-
 
 class TitanicService:
 
     model = TitanicModel() # model과 같은 구조의 인스턴스
 
-    def process(self):  #self : 자기 자신, 클래스 내부에 메소드 등록  this : @property
-        print(f'프로세스 시작')
-        this = self.model
-        feature = ['PassengerId','Pclass','Name','Sex','Age','SibSp','Parch','Ticket','Fare','Cabin','Embarked']
+    def preprocess(self):  #self : 자기 자신, 클래스 내부에 메소드 등록  this : @property
+        print(f'전처리 시작')
+        self.model.preprocess('app/api/context/data/train.csv', 'app/api/context/data/test.csv')
+        return self.model
+       
 
-        this.train = self.new_model('train.csv')
-        this.test = self.new_model('test.csv')
-
-        self.df_info(this)
-    
-        this.id = this.test['PassengerId'] # 문제
-
-        this = self.name_nominal(this)
-
-        ##this = self.drop_feature(this,'Name','SibSp','Parch','Ticket','Cabin')
-    
-        self.df_info(this)
-
-        this = self.sex_nominal(this)
-        this = self.embarked_nominal(this)
-        this = self.pclass_ordinal(this)
-        this = self.age_ratio(this)
-        this = self.fare_ratio(this)
-        this = self.create_train(this)
-
-    
-    @staticmethod
-    def df_info(this):
-        # for i in[this.train, this.test]:
-        #print(f'{this.info()}') 
-        [i.info() for i in [this.train, this.test]]
+    def modeling(self, model_name:str):
+        print(f'모델링 시작:')
+        self.model
+       
+    def learning(self):  # 케이스마다 정확도가 다르기 때문에 이를 반영하여 모델을 생성해야 한다.
+        print(f'학습 시작')
+        print(f'결정트리를 활용한 검증 정확도: ')
+        print(f'랜덤포레스트를 활용한 검증 정확도: ')
+        print(f'나이브베이즈를 활용한 검증 정확도: ')
+        print(f'KNN를 활용한 검증 정확도: ')
+        print(f'SVM를 활용한 검증 정확도: ')
+        self.model
        
     
-    @staticmethod
-    def create_train(this) -> str: # 훈련 세트
-        return this.train.drop('Survived', axis=1) # 0 : 행, 1 : 열 => 그러므로 해당라인에는 열을 주었음.
+    def postprocessing(self):
+        print(f'후처리 시작')
+        self.model
+       
 
-    
-    @staticmethod
-    def name_nominal(this) -> object:
-        this.train['Name'] = this.train['Name'].str.extract('([A-Za-z]+)\.')
-        this.test['Name'] = this.test['Name'].str.extract('([A-Za-z]+)\.')
-        return this
-    
-    @staticmethod
-    def extract_title_from_name(this) -> object:
-        combine = [this.train, this.test]
-        for i in combine:
-            i['Title'] = i['Name'].str.extract('([A-Za-z]+)\.')
-        return this
-    
-    @staticmethod
-    def create_label(this) -> str: 
-        return this.train['Survived']
-    
-    @staticmethod
-    def pclass_ordinal(this) -> object:
-        return this
-    
-    
-    @staticmethod
-    def sex_nominal(this) -> object:
-        return this
-    
-    @staticmethod
-    def embarked_nominal(this) -> object:
-        return this
-    
-    @staticmethod
-    def age_ratio(this) -> object:
-        return this
-    
-    @staticmethod
-    def fare_ratio(this) -> object:
-        return this
-    
-   
+    def submit(self):
+        print(f'제출 시작')
+        self.model
     
     
 

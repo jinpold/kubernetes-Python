@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from langchain.llms import OpenAI
-from langchain.chat_models.openai import ChatOpenAI
+from langchain_community.llms import OpenAI
+from langchain_community.chat_models.openai import ChatOpenAI
 from langchain.schema import SystemMessage, HumanMessage, AIMessage
 import os
 from dotenv import load_dotenv
@@ -9,6 +9,8 @@ from starlette.middleware.cors import CORSMiddleware
 import uvicorn
 from app.api.titanic.model.titanic_model import TitanicModel
 from app.main_router import router
+
+
 
 class Request(BaseModel):
     question: str
