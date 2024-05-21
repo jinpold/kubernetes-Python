@@ -1,7 +1,14 @@
 from abc import *
 from abc import ABCMeta, abstractmethod
 
+import pandas as pd
+
 #추상화 클래스
+
+class EditorBase(metaclass=ABCMeta):
+    @abstractmethod
+    def dropna(self, this: pd.DataFrame) -> pd.DataFrame:
+        pass
 
 class PrinterBase(metaclass=ABCMeta):
     @abstractmethod
@@ -15,7 +22,7 @@ class ReaderBase(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def xls(self):
+    def excel(self):
         pass
 
     @abstractmethod
